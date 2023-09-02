@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CASO4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Solicitar al usuario ingresar la duración de la llamada en minutos
+            Console.Write("Ingrese la duración de la llamada en minutos: ");
+            int duracion = int.Parse(Console.ReadLine());
+
+            // Solicitar al usuario ingresar el día de la semana
+            Console.Write("Ingrese el día de la semana (domingo, lunes, martes, ...): ");
+            string dia = Console.ReadLine().ToLower();
+
+            // Solicitar al usuario ingresar el turno
+            Console.Write("Ingrese el turno (matutino o vespertino): ");
+            string turno = Console.ReadLine().ToLower();
+
+            // Inicializar variables
+            double costoLlamada = 0.0;
+            double impuesto = 0.0;
+            double costoTotal = 0.0;
+
+            // Calcular el costo de la llamada según la duración
+            if (duracion <= 5)
+            {
+                costoLlamada = duracion * 1.00;
+            }
+            else if (duracion <= 8)
+            {
+                costoLlamada = (5 * 1.00) + ((duracion - 5) * 0.80);
+            }
+            else if (duracion <= 10)
+            {
+                costoLlamada = (5 * 1.00) + (3 * 0.80) + ((duracion - 8) * 0.704);
+            }
+            else
+            {
+                costoLlamada = (5 * 1.00) + (3 * 0.80) + (2 * 0.704) + ((duracion - 10) * 0.50);
+            }
+
+            // Calcular el impuesto según el día y el turno
+            if (dia == "domingo")
+            {
+                impuesto = costoLlamada * 0.03;
+            }
+            else if (dia != "sabado") // No hay impuesto los sábados
+            {
+                if (turno == "matutino")
+                {
+                    impuesto = costoLlamada * 0.15;
+                }
+                else if (turno == "vespertino")
+                {
+                    impuesto = costoLlamada * 0.10;
+                }
+            }
+
+            // Calcular el costo total
+            costoTotal = costoLlamada + impuesto;
+
+            // Mostrar resultados
+            Console.WriteLine("Costo de la llamada: $" + costoLlamada.ToString("0.00"));
+            Console.WriteLine("Impuesto: $" + impuesto.ToString("0.00"));
+            Console.WriteLine("Costo total: $" + costoTotal.ToString("0.00"));
+
+            Console.ReadLine();
+        }
+    }
+}
